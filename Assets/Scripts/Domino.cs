@@ -7,9 +7,10 @@ using UnityEngine.UI;
 
 public class Domino : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    private Vector3 offset;
-   
-    public bool isHovering; // these are the two states for our dominoes
+    private Vector3 offset;// vector 3 variable needed for making sure the domino is aligned with the mouse position as it is being dragged around
+    private float moveSpeedLimit = 650; //this is speed limit set for when the domino is being dragged
+
+    public bool isHovering; //these are the two states for our dominoes
     public bool isDragging;
 
     // these are the two events for our dominoes
@@ -26,14 +27,17 @@ public class Domino : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHa
     {
         if (isDragging)
         {
-            Vector2 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset;//
+            Vector2 targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - offset;//this vector2 variable is set to the mouse position minus the offset
+            Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;//
+            Vector2 velocity = direction * Mathf.Min(moveSpeedLimit, Vector2.Distance(transform.position, targetPosition) / Time.deltaTime);//
+            transform.Translate(velocity * Time.deltaTime);//
         }
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
         BeginDragEvent.Invoke(this);
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        offset = mousePosition - (Vector2)transform.position;
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //vector2 
+        offset = mousePosition - (Vector2)transform.position;//
         isDragging = true;
     }
     public void OnDrag(PointerEventData eventData)
