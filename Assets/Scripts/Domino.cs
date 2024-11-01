@@ -5,8 +5,9 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Domino : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Domino : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    Transform parentAfterDrag;
     private Vector3 offset;// vector 3 variable needed for making sure the domino is aligned with the mouse position as it is being dragged around
     private float moveSpeedLimit = 650; //this is speed limit set for when the domino is being dragged
 
@@ -16,13 +17,10 @@ public class Domino : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHa
     // these are the two events for our dominoes
     public UnityEvent<Domino> BeginDragEvent;
     public UnityEvent<Domino> EndDragEvent;
-   
-        void Start()
-    {
-       
+    void Start()
+    {    
     }
 
-    
     void Update()
     {
         if (isDragging)
@@ -39,6 +37,9 @@ public class Domino : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHa
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //vector2 
         offset = mousePosition - (Vector2)transform.position;//
         isDragging = true;
+        parentAfterDrag = transform.parent;
+        transform.SetParent(transform.root);
+        transform.SetAsLastSibling();
     }
     public void OnDrag(PointerEventData eventData)
     {
