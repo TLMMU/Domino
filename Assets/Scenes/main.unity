@@ -151,6 +151,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe48c1fce3daaa741be96fada4dae5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DominoSprites:
+  - {fileID: 21300000, guid: 82788e9355c6ece4cb9acb7aa7eb7d97, type: 3}
+  - {fileID: 21300000, guid: 92e9c1c0c32e78341b28471d21d0ec9c, type: 3}
+  - {fileID: 21300000, guid: 91514d4a63a40e64890191d8e9bca663, type: 3}
+  - {fileID: 21300000, guid: b36ead916e9386a4ea0b860ca6a06ba5, type: 3}
+  - {fileID: 21300000, guid: 54114351f4c080544a5b2d48bb4bcada, type: 3}
+  - {fileID: 21300000, guid: a1c7aed0d0a34fb478ec86aae0a30b1a, type: 3}
+  SpriteRenderer: {fileID: 0}
 --- !u!4 &11238779
 Transform:
   m_ObjectHideFlags: 0
@@ -200,7 +208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 44}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &61264045
@@ -620,6 +628,8 @@ MonoBehaviour:
   DominoSpawnSlots: 6
   DominoSpawnSlotPrefab: {fileID: 1298946280280763262, guid: 15cf903c7401cb245b5d1d4fc62acf28, type: 3}
   DominoPrefab: {fileID: 7682075932273510591, guid: ba06d7620cb1e2047982c1046df391e4, type: 3}
+  dominoPrefabs:
+  - {fileID: 7682075932273510591, guid: ba06d7620cb1e2047982c1046df391e4, type: 3}
 --- !u!1 &1891340474
 GameObject:
   m_ObjectHideFlags: 0

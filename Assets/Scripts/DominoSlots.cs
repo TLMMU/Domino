@@ -10,6 +10,8 @@ public class DominoSlots : MonoBehaviour
     private GameObject slots;
     [SerializeField] private GameObject DominoPrefab;
     private GameObject spawn;
+
+    [SerializeField] private GameObject[] dominoPrefabs; 
     void Start()
     {
         

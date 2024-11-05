@@ -9,7 +9,7 @@ public class Domino : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 {
     Transform parentAfterDrag;
     private Vector3 offset;// vector 3 variable needed for making sure the domino is aligned with the mouse position as it is being dragged around
-    private float moveSpeedLimit = 650; //this is speed limit set for when the domino is being dragged
+    private float moveSpeedLimit = 1000; //this is speed limit set for when the domino is being dragged
 
     public bool isHovering; //these are the two states for our dominoes
     public bool isDragging;
