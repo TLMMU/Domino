@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Domino : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     Transform parentAfterDrag;
     private Vector3 offset;// vector 3 variable needed for making sure the domino is aligned with the mouse position as it is being dragged around
@@ -15,8 +15,8 @@ public class Domino : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     public bool isDragging;
 
     // these are the two events for our dominoes
-    public UnityEvent<Domino> BeginDragEvent;
-    public UnityEvent<Domino> EndDragEvent;
+    public UnityEvent<DominoMovement> BeginDragEvent;
+    public UnityEvent<DominoMovement> EndDragEvent;
     void Start()
     {    
     }

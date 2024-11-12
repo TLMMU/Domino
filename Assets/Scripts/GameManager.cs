@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.U2D;
 
 public class GameManager : MonoBehaviour
 {
     
-    [SerializeField] Sprite [] DominoSprites; 
-    [SerializeField] SpriteRenderer SpriteRenderer;
+    
 
-    void Start()
+      void Start()
     {
-        SpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        DominoSprites = Resources.LoadAll<Sprite>("Assets/Sprites/Resources/Dominoes");
-
     }
 
     // Update is called once per frame
