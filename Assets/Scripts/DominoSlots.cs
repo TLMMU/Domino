@@ -28,61 +28,50 @@ public class DominoSlots : MonoBehaviour
     [SerializeField] GameObject[] BtmHalfObjects;
 
     public void SetSprite(int topValue, int bottomValue)
-    {
-        //var sprite = Resources.Load<Sprite>("Dominoes.png" + topValue + bottomValue)
-        TopHalfSprite = Resources.LoadAll<Sprite>("top_half");//loads our spritesheet in the array
+    {        
+        //loads our spritesheets in two separate arrays
+        TopHalfSprite = Resources.LoadAll<Sprite>("top_half");
         BtmHalfSprite = Resources.LoadAll<Sprite>("btm_half");
-        //int num = UnityEngine.Random.Range(0, TopHalfSprite.Length);
-        //int num2 = UnityEngine.Random.Range(0, BtmHalfSprite.Length);
+        //loads our gameobjects in two separate arrays
         TopHalfObjects = GameObject.FindGameObjectsWithTag("TopHalf");
         BtmHalfObjects = GameObject.FindGameObjectsWithTag("BtmHalf");
 
-        int[] ValuesArray = TopHalfValues.ToArray();
-        //var objandvalues = ValuesArray.Zip(TopHalfObjects, (first, second) => first + " " + second);
-        //foreach (var item in objandvalues)
-        //{
-        //    TopHalf.GetComponent<SpriteRenderer>().sprite = TopHalfSprite[TopHalfValues[0]];
-        //
-        foreach (GameObject TopHalf in TopHalfObjects)
+        //int[] ValuesArray = TopHalfValues.ToArray();
+
+        var tophalfobjsandvalues = TopHalfValues.Zip(TopHalfObjects, (val, obj) => new {Values = val, Objs = obj});
+        int x = 0;
+        int xy = 0;
+        foreach (var numobj in tophalfobjsandvalues)
         {
-            for (int i = 0; i < TopHalfValues.Count; i++)
-            {
-                TopHalf.GetComponent<SpriteRenderer>().sprite = TopHalfSprite[TopHalfValues[i]];              
-            }
-            
+            //TopHalf.GetComponent<SpriteRenderer>().sprite = TopHalfSprite[numobj.Values];
+            TopHalfObjects[x].GetComponent<SpriteRenderer>().sprite = TopHalfSprite[numobj.Values];
+            Debug.Log(numobj.Values);
+            x++;
         }
-
-        foreach (GameObject BtmHalf in BtmHalfObjects)
-        {            
-            foreach (int i in ValuesArray)
-            {
-                BtmHalf.GetComponent<SpriteRenderer>().sprite = BtmHalfSprite[BtmHalfValues[i]];
-            }
-
-        }
+        var btmhalfobjsandvalues = BtmHalfValues.Zip(BtmHalfObjects, (val, obj) => new { Values = val, Objs = obj });
+        foreach (var numobj in btmhalfobjsandvalues)
+        {
+            BtmHalfObjects[xy].GetComponent<SpriteRenderer>().sprite = BtmHalfSprite[numobj.Values];
+            xy++;
+        }        
     }
-
     public void GenerateDomino()
     {
-       for (int i = 0; i < 6; i++)
+       for (int i = 0; i < DominoSpawnSlots; i++)
         {
+            //Generate a random number between x and y for the top number     
             topValue = UnityEngine.Random.Range(0, 6);
+            //Generate a random number between x and y for the bottom number
             TopHalfValues.Add(topValue);
             bottomValue = UnityEngine.Random.Range(0, 6);
             BtmHalfValues.Add(bottomValue);
-        }
-        //Generate a random number between x and y for the top number        
-        //Generate a random number between x and y for the bottom number
-        //topnumber + bottomNumber = totalNumber.
-        
-        //topValue = UnityEngine.Random.Range(0, 6);
-        //bottomValue = UnityEngine.Random.Range(0, 6);
+        }                  
+        //topnumber + bottomNumber = totalNumber     
         totalValue = topValue + bottomValue;
         SetSprite(topValue, bottomValue);
     }
     void Start()
-    {
-        
+    {        
         for (int i = 0; i < DominoSpawnSlots; i++)
         {
             slots = Instantiate(DominoSpawnSlotPrefab, transform) as GameObject;//this will spawn an instance of the dominoslot prefab within the domino group
@@ -91,7 +80,7 @@ public class DominoSlots : MonoBehaviour
             TopHalf = Instantiate(TopHalfPrefab) as GameObject;
             TopHalf.transform.SetParent(spawn.transform);
             BtmHalf = Instantiate(BtmHalfPrefab) as GameObject;
-            BtmHalf.transform.SetParent(spawn.transform);            
+            BtmHalf.transform.SetParent(spawn.transform);         
         }
         GenerateDomino();
     }
