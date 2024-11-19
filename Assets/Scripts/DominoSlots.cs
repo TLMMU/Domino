@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.U2D;
 using UnityEditorInternal.VersionControl;
+using UnityEngine.Events;
+using System;
 
 public class DominoSlots : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class DominoSlots : MonoBehaviour
     private GameObject BtmHalf;
     private GameObject spawn;
 
+    public static UnityAction dominosSpawned;
+
     public int topValue;
     public int bottomValue;
     public int totalValue;
@@ -26,6 +30,7 @@ public class DominoSlots : MonoBehaviour
     [SerializeField] private List<int> BtmHalfValues = new List<int>();
     [SerializeField] GameObject[] TopHalfObjects;
     [SerializeField] GameObject[] BtmHalfObjects;
+
 
     public void SetSprite(int topValue, int bottomValue)
     {        
@@ -69,6 +74,8 @@ public class DominoSlots : MonoBehaviour
         //topnumber + bottomNumber = totalNumber     
         totalValue = topValue + bottomValue;
         SetSprite(topValue, bottomValue);
+        //Dominos have ended...go to pizza hut
+        dominosSpawned.Invoke();
     }
     void Start()
     {        
@@ -77,6 +84,7 @@ public class DominoSlots : MonoBehaviour
             slots = Instantiate(DominoSpawnSlotPrefab, transform) as GameObject;//this will spawn an instance of the dominoslot prefab within the domino group
             spawn = Instantiate(DominoDragPrefab) as GameObject;
             spawn.transform.SetParent(slots.transform);
+            spawn.gameObject.name = "domino"+i;
             TopHalf = Instantiate(TopHalfPrefab) as GameObject;
             TopHalf.transform.SetParent(spawn.transform);
             BtmHalf = Instantiate(BtmHalfPrefab) as GameObject;

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -13,12 +14,18 @@ public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public bool isHovering; //these are the two states for our dominoes
     public bool isDragging;
-
+    
     // these are the two events for our dominoes
     public UnityEvent<DominoMovement> BeginDragEvent;
     public UnityEvent<DominoMovement> EndDragEvent;
+
+    private Vector3 originalPosition;
+
+    DominoSlots DominoSpawnSlotPrefab;
+    DominoSlots DominoDragPrefab;
     void Start()
-    {    
+    {
+        DominoSlots.dominosSpawned += SetStartPos;
     }
 
     void Update()
@@ -31,6 +38,11 @@ public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             transform.Translate(velocity * Time.deltaTime);//
         }
     }
+    private void SetStartPos()
+    {
+        originalPosition = DominoSpawnSlotPrefab.transform.position;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         BeginDragEvent.Invoke(this);
@@ -47,7 +59,15 @@ public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     public void OnEndDrag(PointerEventData eventData)
     {
         EndDragEvent.Invoke(this);
+        
+        Debug.Log(originalPosition);
+        StartCoroutine(FrameWait());
+        IEnumerator FrameWait()
+        {
+        yield return new WaitForEndOfFrame();
+        DominoDragPrefab.transform.position = originalPosition;
         isDragging = false;
+        }
     }
 }
     
