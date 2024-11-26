@@ -40,17 +40,14 @@ public class DominoSlots : MonoBehaviour
         //loads our gameobjects in two separate arrays
         TopHalfObjects = GameObject.FindGameObjectsWithTag("TopHalf");
         BtmHalfObjects = GameObject.FindGameObjectsWithTag("BtmHalf");
+        
 
-        //int[] ValuesArray = TopHalfValues.ToArray();
-
-        var tophalfobjsandvalues = TopHalfValues.Zip(TopHalfObjects, (val, obj) => new {Values = val, Objs = obj});
+        var tophalfobjsandvalues = TopHalfValues.Zip(TopHalfObjects, (val, obj) => new {Values = val, Objs = obj});//this iterates through both the prefab array and the integer list at the same time
         int x = 0;
         int xy = 0;
         foreach (var numobj in tophalfobjsandvalues)
-        {
-            //TopHalf.GetComponent<SpriteRenderer>().sprite = TopHalfSprite[numobj.Values];
-            TopHalfObjects[x].GetComponent<SpriteRenderer>().sprite = TopHalfSprite[numobj.Values];
-            Debug.Log(numobj.Values);
+        {            
+            TopHalfObjects[x].GetComponent<SpriteRenderer>().sprite = TopHalfSprite[numobj.Values];            
             x++;
         }
         var btmhalfobjsandvalues = BtmHalfValues.Zip(BtmHalfObjects, (val, obj) => new { Values = val, Objs = obj });
@@ -73,8 +70,7 @@ public class DominoSlots : MonoBehaviour
         }                  
         //topnumber + bottomNumber = totalNumber     
         totalValue = topValue + bottomValue;
-        SetSprite(topValue, bottomValue);
-        //Dominos have ended...go to pizza hut
+        SetSprite(topValue, bottomValue);        
         dominosSpawned.Invoke();
     }
     void Start()
@@ -84,7 +80,7 @@ public class DominoSlots : MonoBehaviour
             slots = Instantiate(DominoSpawnSlotPrefab, transform) as GameObject;//this will spawn an instance of the dominoslot prefab within the domino group
             spawn = Instantiate(DominoDragPrefab) as GameObject;
             spawn.transform.SetParent(slots.transform);
-            spawn.gameObject.name = "domino"+i;
+            spawn.gameObject.name = "domino "+i;
             TopHalf = Instantiate(TopHalfPrefab) as GameObject;
             TopHalf.transform.SetParent(spawn.transform);
             BtmHalf = Instantiate(BtmHalfPrefab) as GameObject;
