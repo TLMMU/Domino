@@ -18,11 +18,12 @@ public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     // these are the two events for our dominoes
     public UnityEvent<DominoMovement> BeginDragEvent;
     public UnityEvent<DominoMovement> EndDragEvent;
+    public GameObject parent;
 
-    
-      
     void Start()
-    {        
+    {
+        parent = this.transform.parent.gameObject;
+        print(parent);
     }
     void Update()
     {
@@ -36,11 +37,12 @@ public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     }    
 
     public void OnBeginDrag(PointerEventData eventData)
-    {
+    {     
         BeginDragEvent.Invoke(this);
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); //vector2 
         offset = mousePosition - (Vector2)transform.position;//
         isDragging = true;        
+        
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -49,13 +51,16 @@ public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         EndDragEvent.Invoke(this);
 
-        StartCoroutine(FrameWait()); //due to how grid layout works, a couroutine is needed in order to update the position of the domino
+        StartCoroutine(FrameWait()); //due to how grid layout is calculated, a couroutine is needed in order to update the position of the domino
 
         IEnumerator FrameWait()
         {
             yield return new WaitForEndOfFrame();            
             transform.localPosition = originalPosition;//sets the domino's position back to 0, 0, 0
             isDragging = false;
+            
+            transform.SetParent(parent.transform);
+
         }
     }
 }

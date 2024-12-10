@@ -78,6 +78,7 @@ public class DominoSlots : MonoBehaviour
         for (int i = 0; i < DominoSpawnSlots; i++)
         {
             slots = Instantiate(DominoSpawnSlotPrefab, transform) as GameObject;//this will spawn an instance of the dominoslot prefab within the domino group
+            slots.gameObject.name = "spawnslot"+i;
             spawn = Instantiate(DominoDragPrefab) as GameObject;
             spawn.transform.SetParent(slots.transform);
             spawn.gameObject.name = "domino"+i;            

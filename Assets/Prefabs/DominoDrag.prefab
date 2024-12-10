@@ -70,6 +70,7 @@ MonoBehaviour:
   EndDragEvent:
     m_PersistentCalls:
       m_Calls: []
+  parent: {fileID: 0}
 --- !u!114 &-2649313146419224969
 MonoBehaviour:
   m_ObjectHideFlags: 0
