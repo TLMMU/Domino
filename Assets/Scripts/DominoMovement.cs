@@ -8,23 +8,21 @@ using UnityEngine.UIElements;
 
 public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    
+    private Vector3 originalPosition;//this is the position needed for when the players stop dragging a domino
     private Vector3 offset;// vector 3 variable needed for making sure the domino is aligned with the mouse position as it is being dragged around
     private float moveSpeedLimit = 1000; //this is speed limit set for when the domino is being dragged
 
-    public bool isHovering; //these are the two states for our dominoes
+    //this is the dragging state for our dominoes
     public bool isDragging;
     
     // these are the two events for our dominoes
     public UnityEvent<DominoMovement> BeginDragEvent;
     public UnityEvent<DominoMovement> EndDragEvent;
 
-    private Vector3 originalPosition;
-
-    DominoSlots DominoSpawnSlotPrefab;    
+    
+      
     void Start()
-    {
-        DominoSlots.dominosSpawned += SetStartPos;
+    {        
     }
     void Update()
     {
@@ -35,11 +33,7 @@ public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             Vector2 velocity = direction * Mathf.Min(moveSpeedLimit, Vector2.Distance(transform.position, targetPosition) / Time.deltaTime);//
             transform.Translate(velocity * Time.deltaTime);//
         }
-    }
-    private void SetStartPos()
-    {
-        //originalPosition = DominoSpawnSlotPrefab.transform.position;
-    }
+    }    
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -55,12 +49,12 @@ public class DominoMovement : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         EndDragEvent.Invoke(this);
 
-        StartCoroutine(FrameWait()); //due to how grid layout works, a couroutine is needed in order 
+        StartCoroutine(FrameWait()); //due to how grid layout works, a couroutine is needed in order to update the position of the domino
 
         IEnumerator FrameWait()
         {
             yield return new WaitForEndOfFrame();            
-            transform.localPosition = originalPosition;
+            transform.localPosition = originalPosition;//sets the domino's position back to 0, 0, 0
             isDragging = false;
         }
     }

@@ -70,8 +70,8 @@ public class DominoSlots : MonoBehaviour
         }                  
         //topnumber + bottomNumber = totalNumber     
         totalValue = topValue + bottomValue;
-        SetSprite(topValue, bottomValue);        
-        dominosSpawned.Invoke();
+        SetSprite(topValue, bottomValue);       
+        
     }
     void Start()
     {        
@@ -80,7 +80,7 @@ public class DominoSlots : MonoBehaviour
             slots = Instantiate(DominoSpawnSlotPrefab, transform) as GameObject;//this will spawn an instance of the dominoslot prefab within the domino group
             spawn = Instantiate(DominoDragPrefab) as GameObject;
             spawn.transform.SetParent(slots.transform);
-            spawn.gameObject.name = "domino "+i;
+            spawn.gameObject.name = "domino"+i;            
             TopHalf = Instantiate(TopHalfPrefab) as GameObject;
             TopHalf.transform.SetParent(spawn.transform);
             BtmHalf = Instantiate(BtmHalfPrefab) as GameObject;
