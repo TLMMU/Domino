@@ -2,6 +2,7 @@
 Name: Teodoro Lee
 Student ID: 23637603
 
+Link to repo: https://github.com/TLMMU/Domino
 
 Credits:
 Domino Sprites: https://royalgraphicsresources.itch.io/domino-asset-pack
@@ -15,3 +16,4 @@ Drag your domino into the play area.
 Click on a domino within the play area to rotate it and match it with another domino.
 The dragged domino will always be placed in the furthest right position of the shape while the previous domino moves into the position above the current dragged domino.
 The reset area button will reset the play area.
+
