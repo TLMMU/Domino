@@ -64,12 +64,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDragging: 0
+  dragLocked: 0
+  rotated: 0
   BeginDragEvent:
     m_PersistentCalls:
       m_Calls: []
   EndDragEvent:
     m_PersistentCalls:
       m_Calls: []
+  parentAfterDrag: {fileID: 0}
   parent: {fileID: 0}
 --- !u!114 &-2649313146419224969
 MonoBehaviour:
@@ -168,7 +171,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 40, y: 40}
+  m_Size: {x: 65, y: 120}
   m_EdgeRadius: 0
 --- !u!50 &9064654107307024415
 Rigidbody2D:
@@ -196,7 +199,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 2
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!223 &7531284392182204895
 Canvas:
   m_ObjectHideFlags: 0
@@ -214,7 +217,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -232,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
